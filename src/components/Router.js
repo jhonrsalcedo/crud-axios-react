@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import axios from 'axios';
-import Header from '../components/Header/Header';
+import Header from './Header/Header';
 
 class Router extends Component {
     constructor(props) {
