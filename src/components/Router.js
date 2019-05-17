@@ -3,7 +3,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import axios from 'axios';
 import Header from './Header/Header';
 import Nav from './Nav/Nav';
-import { async } from 'q';
+import Posts from './Posts/Posts';
 
 class Router extends Component {
     constructor(props) {
@@ -17,25 +17,21 @@ class Router extends Component {
       this.getPosts();       
     }
 
-    getCategory = async () =>{
-        let url =`https://www.eventbriteapi.com/v3/categories/?token=${this.token}&locale=es_ES`;
-        const response = await fetch(url)
-        const categoriesResp = await response.json()
-          //console.log(categoriesResp.categories) 
-          this.setState({
-            categoriesResp: categoriesResp.categories
-          })
-          
-      }
-
+   
     getPosts = async() =>{
 
         //obtener con axios post
-        const response = await axios.get(`https://jsonplaceholder.typicode.com/posts`);
-        console.log(response.data) 
-        this.setState({
-            posts:response.data
-          })
+        try{
+            const response = await axios.get(`https://jsonplaceholder.typicode.com/posts`);
+            console.log(response.data) 
+            this.setState({
+                posts:response.data
+              })
+        }catch(error){
+            console.error(`Hay un error ${error}`)
+           
+        }
+      
     }
     render() { 
         return (  
@@ -44,10 +40,20 @@ class Router extends Component {
                     <div className="row justify-content-center">
                         <Header />
                         <Nav />   
-                        {/* Switch nos va ha permitir cambiar entre paginas  
+                        {/* Switch nos va ha permitir cambiar entre las distintas paginas  
                         Lo que se encuente fuera de Switch permanecera estatico*/}
-                        <Switch>>
-
+                        <Switch>> 
+                            {/* llamamos un nuevo componente llamado posts para que muestre todos los posts
+                            necesitamos realizar un render para que pinte o dibuje lo que vamos a retornar del component posts */}
+                            <Route exact patch="/" render={
+                                () =>{ 
+                                    return(
+                                        <Posts
+                                            posts={this.state.posts}
+                                        />
+                                    );
+                                }
+                            }/>
 
                         </Switch>
                     </div>
