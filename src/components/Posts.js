@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import List from '../List/List';
+import List from './List';
 
 class Posts extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {  }
-    }
+   
     render() { 
         return ( 
             <div className="col-12 col-md-8">
