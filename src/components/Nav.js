@@ -6,7 +6,7 @@ const Nav = () => {
     return ( 
         <nav className="col-12 col-md-8">
             <Link to={'/'} className="btn btn-primary">Todos los posts</Link>
-            <Link to={'/crear'} className="btn btn-success">Nuevo Post</Link>
+            <Link to={'/createPost'} className="btn btn-success">Nuevo Post</Link>
         </nav>
      );
 }

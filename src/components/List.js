@@ -15,9 +15,11 @@ showPosts = () =>{
             <React.Fragment>
                 {Object.keys(posts).map(post =>(
                     //llamammos el component post
+                    //llamamos borrar post
                     <Post
                         key={post}
                         info={this.props.posts[post]}
+                        deletePost={this.props.deletePost}
                     />
                     ))}
             </React.Fragment>

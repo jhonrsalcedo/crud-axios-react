@@ -13,7 +13,11 @@ class SinglePost extends Component {
                 {/* devemos mostrar cada info individual utilizamos link */}
                 <td>
                 <Link to={`/post/${id}`}  className="btn btn-primary" > Ver</Link>
-                    <button type="button" className="btn btn-danger">Borrar</button>
+            {/* Pasamos un listener onClick y desde este llamamos el metodo deletePost por medio de arrow funtcion
+            deletePost(id) le pasamos el id que declaramos en el deletePost en el componente Route */}
+                    <button 
+                    onClick={() => (this.props.deletePost(id)) }
+                     type="button" className="btn btn-danger">Borrar</button>
                 </td>
             </tr>
           );

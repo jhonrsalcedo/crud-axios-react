@@ -14,7 +14,7 @@ class SinglePost extends Component {
             </React.Fragment>
         )
     }
-   
+
     render() { 
         return ( 
             <div className="col-12 col-md-8">

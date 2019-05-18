@@ -10,6 +10,8 @@ class Posts extends Component {
                 <List
                 //lo llamamos desde el hijo por medio de props 
                     posts={this.props.posts}
+                    //llamamos borrar posts desde Router
+                    deletePost={this.props.deletePost}
                 />
             </div>
          );

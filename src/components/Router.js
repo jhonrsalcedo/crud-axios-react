@@ -5,6 +5,7 @@ import Header from './Header';
 import Nav from './Nav';
 import Posts from './Posts';
 import SinglePost from './SinglePost';
+import FormPost from './FormPost';
 
 class Router extends Component {
     constructor(props) {
@@ -24,7 +25,7 @@ class Router extends Component {
         //obtener con axios post
         try{
             const response = await axios.get(`https://jsonplaceholder.typicode.com/posts`);
-            console.log(response.data) 
+            //console.log(response.data) 
             this.setState({
                 posts:response.data
               })
@@ -33,6 +34,22 @@ class Router extends Component {
            
         }
       
+    }
+      //Borrar post
+    //desde el id
+    deletePost = async id =>{
+        //console.log(id)
+        const response = await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`);
+        if(response.status === 200){
+            const posts = [...this.state.posts];
+
+            let result = posts.filter(post =>(
+                post.id !== id
+            ));
+            this.setState({
+                posts:result
+            })
+        }
     }
     render() { 
         return (  
@@ -51,6 +68,7 @@ class Router extends Component {
                                     return(
                                         <Posts
                                             posts={this.state.posts}
+                                            deletePost={this.deletePost}
                                         />
                                     );
                                 }
@@ -62,7 +80,7 @@ class Router extends Component {
                                 const posts =this.state.posts;
                                 let filterId;
                                 filterId = posts.filter(post =>(
-                                    post.id == idPost
+                                    post.id === Number(idPost)
                                     ))
                                 return(
                                     /* nos traemos todo el arreglo del post [0] */
@@ -72,6 +90,9 @@ class Router extends Component {
                                     
                                 )
                             }} />
+                            {/* a diferencia de los demas Route que utilizamos render en essta ocacion 
+                            vamos a llamar un componente  */}
+                            <Route exact path="/createPost" component={FormPost}/>
 
                         </Switch>
                     </div>
