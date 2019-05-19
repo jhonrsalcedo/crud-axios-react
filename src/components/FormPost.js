@@ -6,22 +6,32 @@ class FormPost extends Component {
         super(props);
         this.state={
             title:'',
-            body:''
+            body:'',
+            userId: 1
         }
     }
 
     createPost = (e) =>{
+        //prevenir el default
         e.preventDefault();
+        if(this.state.title === '' || this.state.body === ''){
+            alert("El campo esta vacío");
+           return false;
+           }else{  
+        //crear el objeto con los datos
+        
         const post = this.state
 
-        console.log(post);
+        //console.log(post);
+        //enviar por props al componente Router
+        this.props.createPost(post);
 
         //limpiar formulario
         this.setState({
             title: '',
             body:''
          })
-    }
+    }}
 
     HandlePostInput = (e) =>{
         this.setState({

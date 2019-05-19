@@ -51,6 +51,12 @@ class Router extends Component {
             })
         }
     }
+
+    createPost = async (post) =>{
+        console.log(post)
+
+
+    }
     render() { 
         return (  
             <BrowserRouter>
@@ -90,9 +96,19 @@ class Router extends Component {
                                     
                                 )
                             }} />
-                            {/* a diferencia de los demas Route que utilizamos render en essta ocacion 
+                            {/* a diferencia de los demas Route que utilizamos render en essta ocasion 
                             vamos a llamar un componente  */}
-                            <Route exact path="/createPost" component={FormPost}/>
+                            <Route exact path="/createPost" render={ () =>{
+                                return(
+                                    <FormPost
+                                        createPost={this.createPost}
+                                        
+                                    />
+                                )
+                            }
+
+
+                            }/>
 
                         </Switch>
                     </div>
