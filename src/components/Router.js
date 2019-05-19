@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import Header from './Header';
 import Nav from './Nav';
 import Posts from './Posts';
@@ -41,6 +42,7 @@ class Router extends Component {
         //console.log(id)
         const response = await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`);
         if(response.status === 200){
+            /* realizamos una copia del state actual para ver el que se va a eliminar */
             const posts = [...this.state.posts];
 
             let result = posts.filter(post =>(
@@ -53,8 +55,21 @@ class Router extends Component {
     }
 
     createPost = async (post) =>{
-        console.log(post)
+        //console.log(post)
+        const response = await axios.post(`https://jsonplaceholder.typicode.com/posts`,{post})
+            if(response.status === 201){
+                
+                //console.log(response.data)
+                //creamos un nuevo post con el metodo assign()
+                let postId = {id: response.data.id}
+                const newPost = Object.assign({}, response.data.post, postId)
+                //console.log(newPost)
 
+                //pasamos el state anterior
+                this.setState(prevState =>({
+                    posts: [...prevState.posts, newPost]
+                }))
+            }
 
     }
     render() { 
