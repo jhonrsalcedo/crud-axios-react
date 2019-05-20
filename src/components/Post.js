@@ -37,9 +37,10 @@ class Post extends Component {
                 <td>{title}</td>
                 {/* devemos mostrar cada info individual utilizamos link */}
                 <td>
-                <Link to={`/post/${id}`}  className="btn btn-primary" > Ver</Link>
+                <Link to={`/post/${id}`}  className="btn btn-primary" > Ver</Link> &nbsp;
             {/* Pasamos un listener onClick y desde este llamamos el metodo deletePost por medio de arrow funtcion
             deletePost(id) le pasamos el id que declaramos en el deletePost en el componente Route */}
+            <Link to={`/edit/${id}`}  className="btn btn-warning" > Editar</Link>
                     <button 
                     /* onClick={() => (this.props.deletePost(id)) } */
                     onClick={this.confirmDeletion}

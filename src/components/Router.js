@@ -7,6 +7,7 @@ import Nav from './Nav';
 import Posts from './Posts';
 import SinglePost from './SinglePost';
 import FormPost from './FormPost';
+import Edit from './Edit';
 
 class Router extends Component {
     constructor(props) {
@@ -58,7 +59,11 @@ class Router extends Component {
         //console.log(post)
         const response = await axios.post(`https://jsonplaceholder.typicode.com/posts`,{post})
             if(response.status === 201){
-                
+                Swal.fire(
+                    'Post Creado!',
+                    'Se creo Correctamente!',
+                    'success'
+                  )
                 //console.log(response.data)
                 //creamos un nuevo post con el metodo assign()
                 let postId = {id: response.data.id}
@@ -72,6 +77,25 @@ class Router extends Component {
             }
 
     }
+
+    editPost = async (postUpdated) => {
+
+        //console.log(postUpdated)
+        const {id} = postUpdated
+        //metodo put para actualizar 
+        const response = await axios.put(`https://jsonplaceholder.typicode.com/posts/${id}`,{postUpdated})
+        console.log(response)
+        //realizar verificacion de estado 200
+        if(response.status === 200){
+           // this.getPosts();
+           //para realizar los cambios y se mantengan
+           let postId = res.data.id;
+
+           //utiizamos el express operation para realizar una copia del state 
+           const posts = [...this.state.posts];
+        }
+    } 
+
     render() { 
         return (  
             <BrowserRouter>
@@ -124,6 +148,24 @@ class Router extends Component {
 
 
                             }/>
+                            <Route exact path="/edit/:postID" render={ (props) =>{
+                                let idPost = props.location.pathname.replace('/edit/', '');
+                               
+                                //obtenemos todos los posts para luego filtrar id
+                                const posts =this.state.posts;
+                                let filterId;
+                                filterId = posts.filter(post =>(
+                                    post.id === Number(idPost)
+                                    ))
+                                return(
+                                    /* nos traemos todo el arreglo del post [0] */
+                                   <Edit 
+                                   post={filterId[0]}
+                                   editPost ={this.editPost}
+                                   />
+                                    
+                                )
+                            }} />
 
                         </Switch>
                     </div>
