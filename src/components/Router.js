@@ -84,15 +84,41 @@ class Router extends Component {
         const {id} = postUpdated
         //metodo put para actualizar 
         const response = await axios.put(`https://jsonplaceholder.typicode.com/posts/${id}`,{postUpdated})
-        console.log(response)
+      // console.log(response)
         //realizar verificacion de estado 200
         if(response.status === 200){
+            //agregamos la alerta
+            Swal.fire(
+                'Post Editado!',
+                'Correctamente!',
+                'success'
+              )
+
            // this.getPosts();
+           //consultar la api data
+           //console.log(response.data)
            //para realizar los cambios y se mantengan
-           let postId = res.data.id;
+           let postId = response.data.id;
 
            //utiizamos el express operation para realizar una copia del state 
            const posts = [...this.state.posts];
+
+           //para identificar que post vamos ha actualizar
+
+           //findIndex iterara en cada uno de los registro post: cada registro mientras posts todos los registros
+
+           const postEdit = posts.findIndex(post => postId === post.id);
+            //podemos ver por la posicion de acada post
+            //console.log(posts[postEdit])
+
+            //pasamos el nuevo postUpdated
+            posts[postEdit] = postUpdated;
+ 
+            //nos muestra el id post 
+           //console.log(postEdit);
+           this.setState({
+               posts
+           })
         }
     } 
 
